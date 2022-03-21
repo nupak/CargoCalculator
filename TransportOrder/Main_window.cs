@@ -24,7 +24,6 @@ namespace TransportOrder
         const string colomnNamePrise = "Ставка";
         const string colomnNameComment = "Примечание";
 
-
         DataSet dataSet; //Дата сэт полученный из эксель файла
 
         public Main_window()
@@ -32,7 +31,6 @@ namespace TransportOrder
             InitializeComponent();
         }
         
-
         /// <summary>
         /// Обработчик нажатия на кнопку загрузки файла
         /// </summary>
@@ -88,7 +86,7 @@ namespace TransportOrder
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            DataTable result_table = calculateCargo();
+            DataTable result_table = CalculateCargo();
             dataDisplayGrid.DataSource = result_table;
         }
 
@@ -96,22 +94,23 @@ namespace TransportOrder
         /// Получение готовой таблицы и подсчета всех данных
         /// </summary>
         /// <returns></returns>
-        private DataTable calculateCargo()
+        private DataTable CalculateCargo()
         {
             DataTable dataForDisplay = dataSet.Tables[0]; //Таблицыа для отображения "Груз"
             DataTable dataForCalculating = dataSet.Tables[0]; //Таблица для оценки стоимости "Тариф"
             
-            addColumnsInTable(ref dataForDisplay);
+            AddColumnsInTable(ref dataForDisplay);
 
             FillTable(ref dataForDisplay);
 
             return dataForDisplay;
         }
+
         /// <summary>
         /// Добавление новых колонок в таблицу
         /// </summary>
         /// <param name="data">DataTable таблица для отображения</param>
-        private void addColumnsInTable(ref DataTable data)
+        private void AddColumnsInTable(ref DataTable data)
         {
             data.Columns.Add(new DataColumn(colomnNameStartDayCalculate));
             data.Columns.Add(new DataColumn(colomnNameFinishDayCalculate));
@@ -120,6 +119,7 @@ namespace TransportOrder
             data.Columns.Add(new DataColumn(colomnNameComment));
         }
 
+        //Заполнение полец таблицы(dataSet)
         private void FillTable(ref DataTable data)
         { int i, j;
             for (i = 0; i < data.Rows.Count; i++)
@@ -128,6 +128,7 @@ namespace TransportOrder
             }
         }
 
+        //Генератор строки для подстановки в таблицу(dataSet)
         private DataRow MakeRowToPaste(DataRow dataRow)
         {
             PasteStartDay(ref dataRow);
@@ -136,13 +137,19 @@ namespace TransportOrder
             return dataRow;
         }
 
-        //Подстановка актуальной даты начала рассчета
+        /// <summary>
+        /// Подстановка актуальной даты начала рассчета
+        /// </summary>
+        /// <param name="dataRow"></param>
         private void PasteStartDay(ref DataRow dataRow)
         {
             
         }
 
-        //Подстановка, если возможно актаульной даты окончания рассчета
+        /// <summary>
+        /// Подстановка, если возможно актаульной даты окончания рассчета
+        /// </summary>
+        /// <param name="dataRow"></param>
         private void PasteFinishDay(ref DataRow dataRow)
         {
 
